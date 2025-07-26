@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 // Import Components
 import Navbar from './components/Navbar.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
-
+import EditPropertyPage from './pages/EditPropertyPage.jsx';
 // Import Pages
 import HomePage from './pages/HomePage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
@@ -42,6 +42,14 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+  path="/edit-property/:id"
+  element={
+    <ProtectedRoute>
+      <EditPropertyPage />
+    </ProtectedRoute>
+  }
+/>
         </Routes>
       </main>
     </Router>

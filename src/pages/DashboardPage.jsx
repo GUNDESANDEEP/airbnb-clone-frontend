@@ -39,8 +39,10 @@ function DashboardPage() {
         <h1 className="text-3xl font-bold text-gray-800">My Dashboard</h1>
         <p className="text-md text-gray-600 mt-1">Manage your property listings.</p>
       </div>
+
       <div className="bg-white p-6 rounded-lg shadow-md">
         <h2 className="text-2xl font-semibold text-gray-800 border-b pb-4">My Properties</h2>
+        
         {properties.length > 0 ? (
           <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {properties.map(prop => (
@@ -51,6 +53,9 @@ function DashboardPage() {
                   <p className="text-gray-600">{prop.location}</p>
                 </div>
                 <div className="mt-4 flex gap-2">
+                  <Link to={`/edit-property/${prop._id}`} className="w-full text-center bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600">
+                    Edit
+                  </Link>
                   <button onClick={() => handleDelete(prop._id)} className="w-full bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-600">
                     Delete
                   </button>
