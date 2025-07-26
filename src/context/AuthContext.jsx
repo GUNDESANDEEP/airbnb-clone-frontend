@@ -10,18 +10,19 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const fetchUser = async () => {
       if (token) {
-        // Set the token in axios headers for all subsequent requests
         axios.defaults.headers.common['x-auth-token'] = token;
+        localStorage.setItem('token', token); // Ensure token is in local storage
         try {
-          const res = await axios.get('http://localhost:5000/api/auth/user');
+          const res = await axios.get(import.meta.env.VITE_API_URL + '/api/auth/user');
           setUser(res.data);
         } catch (err) {
-          // If token is invalid, remove it
           localStorage.removeItem('token');
           setToken(null);
           setUser(null);
+          delete axios.defaults.headers.common['x-auth-token'];
         }
       } else {
+        localStorage.removeItem('token');
         delete axios.defaults.headers.common['x-auth-token'];
       }
     };

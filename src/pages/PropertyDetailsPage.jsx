@@ -3,8 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import { DateRange } from 'react-date-range';
-import 'react-date-range/dist/styles.css'; // main style file
-import 'react-date-range/dist/theme/default.css'; // theme css file
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
 
 function PropertyDetailsPage() {
   const { id } = useParams();
@@ -22,7 +22,7 @@ function PropertyDetailsPage() {
   useEffect(() => {
     const fetchProperty = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/properties/${id}`);
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/properties/${id}`);
         setProperty(res.data);
       } catch (err) {
         console.error('Error fetching property details', err);
@@ -43,7 +43,7 @@ function PropertyDetailsPage() {
         startDate: dateRange[0].startDate,
         endDate: dateRange[0].endDate
       };
-      await axios.post('http://localhost:5000/api/bookings', bookingDetails);
+      await axios.post(import.meta.env.VITE_API_URL + '/api/bookings', bookingDetails);
       alert('Booking successful!');
       navigate('/dashboard');
     } catch (err) {
@@ -60,9 +60,7 @@ function PropertyDetailsPage() {
         <h1 className="text-3xl font-bold text-gray-800">{property.title}</h1>
         <p className="text-md text-gray-600 mt-1">{property.location}</p>
       </div>
-      
       <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
-        {/* Left Column for Image and Description */}
         <div className="md:col-span-3">
           <img 
             src={property.imageUrl} 
@@ -74,8 +72,6 @@ function PropertyDetailsPage() {
             <p className="text-gray-700 mt-4 whitespace-pre-wrap">{property.description}</p>
           </div>
         </div>
-
-        {/* Right Column for Booking */}
         <div className="md:col-span-2">
           <div className="border rounded-xl shadow-lg p-6 sticky top-6">
             <p className="text-xl font-semibold mb-4">

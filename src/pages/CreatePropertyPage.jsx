@@ -32,7 +32,7 @@ function CreatePropertyPage() {
     propertyData.append('image', formData.image);
 
     try {
-      await axios.post('http://localhost:5000/api/properties', propertyData, {
+      await axios.post(import.meta.env.VITE_API_URL + '/api/properties', propertyData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
